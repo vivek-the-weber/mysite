@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vivek Dhengale</title>
+</head>
+<body>
+    <h1>Vivek Dhengale</h1>
+    <h2>My Bogs</h2>
+    <ul>
+        {% for each_blog in recent_blogs %}
+            <li>
+                <a href="{% url "detail-post" each_blog.slug %}">
+                    {{each_blog.title}}
+                </a>
+                <p>{{each_blog.author}}</p>
+                <p>{{each_blog.updated_at}}</p>
+            </li>
+
+        {% endfor %}
+    </ul>
+</body>
+</html>
