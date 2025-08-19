@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,6 +7,7 @@
     <title>Vivek Dhengale</title>
 </head>
 <body>
+    {% include "blog/includes/header.html" %}
     <h1>Vivek Dhengale</h1>
     <h2>My Bogs</h2>
     <ul>
@@ -14,7 +16,10 @@
                 <a href="{% url "detail-post" each_blog.slug %}">
                     {{each_blog.title}}
                 </a>
-                <p>{{each_blog.author}}</p>
+
+                <img src="{% static "blog/images/"|add:each_blog.image_url %}">
+                <p>{{each_blog.excerpt}}</p>
+                <address>By <a href="mailto:{{each_blog.author.email}}">{{each_blog.author}}</a></address>
                 <p>{{each_blog.updated_at}}</p>
             </li>
 

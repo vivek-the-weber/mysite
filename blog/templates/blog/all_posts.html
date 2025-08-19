@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,6 +7,22 @@
     <title>All Posts</title>
 </head>
 <body>
-    
+    {% include "blog/includes/header.html" %}
+    <h1>All Posts</h1>
+    <ul>
+        {% for each_blog in all_blogs %}
+            <li>
+                <a href="{% url "detail-post" each_blog.slug %}">
+                    {{each_blog.title}}
+                </a>
+                
+                <img src="{% static "blog/images/"|add:each_blog.image_url %}">
+                <p>{{each_blog.excerpt}}</p>
+                <address>By <a href="mailto:{{each_blog.author.email}}">{{each_blog.author}}</a></address>
+                <p>{{each_blog.updated_at}}</p>
+            </li>
+
+        {% endfor %}
+    </ul>
 </body>
 </html>
