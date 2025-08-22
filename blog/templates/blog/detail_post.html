@@ -12,11 +12,30 @@
     {% for tag in post_tags %}
         <p>{{ tag }}</p>
     {% endfor %}
-    <img src="{% static "blog/images/"|add:individual_blog.image_url %}">
+    <img src="{{individual_blog.image_url.url}}">
     <br>
     <p>{{individual_blog.description}}</p>
     <address>By <a href="mailto:{{individual_blog.author.email}}">{{individual_blog.author}}</a></address>
     <p>{{individual_blog.updated_at}}</p>
-
+    <div>
+        <h2>Comments</h2>
+        <ul>
+            {% for each_comment in all_comments %}
+                <li>
+                    <h3>{{each_comment.commentor_name}}</h3>
+                    <p>{{each_comment.comment_text}}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div>***********************************************************************************</div>
+    <div>
+        <h3>Enter Comment</h3>
+        <form action="{% url "detail-post" individual_blog.slug %}" method="POST">
+            {% csrf_token %}
+            {{comment_form}}
+            <button type="submit">Submit</button>
+        </form>
+    </div>
 </body>
 </html>

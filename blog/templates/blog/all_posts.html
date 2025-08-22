@@ -16,7 +16,7 @@
                     {{each_blog.title}}
                 </a>
                 
-                <img src="{% static "blog/images/"|add:each_blog.image_url %}">
+                <img src="{{each_blog.image_url.url}}">
                 <p>{{each_blog.excerpt}}</p>
                 <address>By <a href="mailto:{{each_blog.author.email}}">{{each_blog.author}}</a></address>
                 <p>{{each_blog.updated_at}}</p>
