@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Read Later</title>
+</head>
+<body>
+    {% include "blog/includes/header.html" %}
+    <h1>Read Later</h1>
+    <h2>My Bogs</h2>
+    <ul>
+        {% for each_blog in read_laters %}
+            <li>
+                <a href="{% url "detail-post" each_blog.slug %}">
+                    {{each_blog.title}}
+                </a>
+
+                <img src="{{each_blog.image_url.url}}">
+                <p>{{each_blog.excerpt}}</p>
+                <address>By <a href="mailto:{{each_blog.author.email}}">{{each_blog.author}}</a></address>
+                <p>{{each_blog.updated_at}}</p>
+            </li>
+
+        {% endfor %}
+    </ul>
+</body>
+</html>

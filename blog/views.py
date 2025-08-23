@@ -58,6 +58,27 @@ class IndividualPostView(View):
             "post_tags" : blog.tags.all(),
             "comment_form" : filled_form,
             })
+        
+class ReadLaterView(View):
+    def get(self,request):
+        slug_list = request.session.get("read_later_blogs")
+        context = {}
+        if slug_list is None or len(slug_list) == 0:            
+            context["read_laters"] = []
+        else:
+            blogs = BlogModel.objects.filter(slug__in = slug_list)
+            context["read_laters"] = blogs
+        return render(request,"blog/read_later.html",context)
+    def post(self,request):
+        read_later_blog = request.POST["read_later_blog"]
+        slugs_list = request.session.get("read_later_blogs")
+        redirect_path = reverse("detail-post",args=[read_later_blog])
+        if slugs_list is None:
+            slugs_list = []
+        if read_later_blog not in slugs_list:
+            slugs_list.append(read_later_blog)
+            request.session["read_later_blogs"] = slugs_list
+        return HttpResponseRedirect(redirect_path)
 # def individual_post(request,slug):
 #     blog = get_object_or_404(BlogModel,slug=slug)
 #     return render(request,"blog/detail_post.html",{

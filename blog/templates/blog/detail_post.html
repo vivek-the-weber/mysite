@@ -9,6 +9,11 @@
 <body>
     {% include "blog/includes/header.html" %}
     <h1>{{individual_blog.title}}</h1>
+    <form action="read-later" method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="read_later_blog" value="{{individual_blog.slug}}">
+        <button type="submit">Read Later</button>
+    </form>
     {% for tag in post_tags %}
         <p>{{ tag }}</p>
     {% endfor %}
